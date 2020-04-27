@@ -1,0 +1,18 @@
+{
+    "name": "Adventures of Quack-Comp Sci Game Design Project",
+    "dependencies": {
+        "device": "*",
+        "animation": "*",
+        "palette": "*"
+    },
+    "description": "",
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "preferredEditor": "blocksprj",
+    "testFiles": [
+        "test.ts"
+    ]
+}
