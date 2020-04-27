@@ -279,6 +279,8 @@ scene.onOverlapTile(SpriteKind.Player, myTiles.tile16, function (sprite, locatio
     current_level += 1
     Startlevel()
 })
+// WOW!  This is pretty cool!  Keep going with this! 
+// Awesome work!!!!!!!!!
 function Startlevel () {
     if (current_level == 0) {
         tiles.setTilemap(tiles.createTilemap(
