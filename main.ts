@@ -158,6 +158,127 @@ f f f f f f f f f f f f f f f f
 . . . . . . . . . . . . . . . . 
 `
 }
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile4, function (sprite, location) {
+    game.over(false, effects.dissolve)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Mushroom, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    bat = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, SpriteKind.Enemy)
+    animation.runImageAnimation(
+    bat,
+    [img`
+. . f f f . . . . . . . . f f f 
+. f f c c . . . . . . f c b b c 
+f f c c . . . . . . f c b b c . 
+f c f c . . . . . . f b c c c . 
+f f f c c . c c . f c b b c c . 
+f f c 3 c c 3 c c f b c b b c . 
+f f b 3 b c 3 b c f b c c b c . 
+. c 1 b b b 1 b c b b c c c . . 
+. c 1 b b b 1 b b c c c c . . . 
+c b b b b b b b b b c c . . . . 
+c b 1 f f 1 c b b b b f . . . . 
+f f 1 f f 1 f b b b b f c . . . 
+f f 2 2 2 2 f b b b b f c c . . 
+. f 2 2 2 2 b b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`,img`
+. . f f f . . . . . . . . . . . 
+f f f c c . . . . . . . . f f f 
+f f c c c . c c . . . f c b b c 
+f f c 3 c c 3 c c f f b b b c . 
+f f c 3 b c 3 b c f b b c c c . 
+f c b b b b b b c f b c b c c . 
+c c 1 b b b 1 b c b b c b b c . 
+c b b b b b b b b b c c c b c . 
+c b 1 f f 1 c b b c c c c c . . 
+c f 1 f f 1 f b b b b f c . . . 
+f f f f f f f b b b b f c . . . 
+f f 2 2 2 2 f b b b b f c c . . 
+. f 2 2 2 2 2 b b b c f . . . . 
+. . f 2 2 2 b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+. . . . . . . . . . . . . . . . 
+`,img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . c c . c c . . . . . . . . 
+. . f 3 c c 3 c c c . . . . . . 
+. f c 3 b c 3 b c c c . . . . . 
+f c b b b b b b b b f f . . . . 
+c c 1 b b b 1 b b b f f . . . . 
+c b b b b b b b b c f f f . . . 
+c b 1 f f 1 c b b f f f f . . . 
+f f 1 f f 1 f b c c b b b . . . 
+f f f f f f f b f c c c c . . . 
+f f 2 2 2 2 f b f b b c c c . . 
+. f 2 2 2 2 2 b c c b b c . . . 
+. . f 2 2 2 b f f c c b b c . . 
+. . . f f f f f f f c c c c c . 
+. . . . . . . . . . . . c c c c 
+`,img`
+. f f f . . . . . . . . f f f . 
+f f c . . . . . . . f c b b c . 
+f c c . . . . . . f c b b c . . 
+c f . . . . . . . f b c c c . . 
+c f f . . . . . f f b b c c . . 
+f f f c c . c c f b c b b c . . 
+f f f c c c c c f b c c b c . . 
+. f c 3 c c 3 b c b c c c . . . 
+. c b 3 b c 3 b b c c c c . . . 
+c c b b b b b b b b c c . . . . 
+c 1 1 b b b 1 1 b b b f c . . . 
+f b b b b b b b b b b f c c . . 
+f b c b b b c b b b b f . . . . 
+. f 1 f f f 1 b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`],
+    100,
+    true
+    )
+    bat.setPosition(quack.x + 80, quack.y - 80)
+    bat.follow(quack)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    otherSprite.destroy()
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (quack.vy == 0) {
+        quack.vy = -200
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    if (quack.y < otherSprite.y) {
+        info.changeScoreBy(3)
+    } else {
+        info.changeLifeBy(-1)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile16, function (sprite, location) {
+    current_level += 1
+    Startlevel()
+})
 // WOW!  This is pretty cool!  Keep going with this!
 // Awesome work!!!!!!!!!
 function Startlevel () {
@@ -391,130 +512,9 @@ c b b b b d d 1 1 3 b d d d b c
         tiles.setTileAt(value6, myTiles.tile0)
     }
 }
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile4, function (sprite, location) {
-    game.over(false, effects.dissolve)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Mushroom, function (sprite, otherSprite) {
-    otherSprite.destroy()
-    bat = sprites.create(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, SpriteKind.Enemy)
-    animation.runImageAnimation(
-    bat,
-    [img`
-. . f f f . . . . . . . . f f f 
-. f f c c . . . . . . f c b b c 
-f f c c . . . . . . f c b b c . 
-f c f c . . . . . . f b c c c . 
-f f f c c . c c . f c b b c c . 
-f f c 3 c c 3 c c f b c b b c . 
-f f b 3 b c 3 b c f b c c b c . 
-. c 1 b b b 1 b c b b c c c . . 
-. c 1 b b b 1 b b c c c c . . . 
-c b b b b b b b b b c c . . . . 
-c b 1 f f 1 c b b b b f . . . . 
-f f 1 f f 1 f b b b b f c . . . 
-f f 2 2 2 2 f b b b b f c c . . 
-. f 2 2 2 2 b b b b c f . . . . 
-. . f b b b b b b c f . . . . . 
-. . . f f f f f f f . . . . . . 
-`,img`
-. . f f f . . . . . . . . . . . 
-f f f c c . . . . . . . . f f f 
-f f c c c . c c . . . f c b b c 
-f f c 3 c c 3 c c f f b b b c . 
-f f c 3 b c 3 b c f b b c c c . 
-f c b b b b b b c f b c b c c . 
-c c 1 b b b 1 b c b b c b b c . 
-c b b b b b b b b b c c c b c . 
-c b 1 f f 1 c b b c c c c c . . 
-c f 1 f f 1 f b b b b f c . . . 
-f f f f f f f b b b b f c . . . 
-f f 2 2 2 2 f b b b b f c c . . 
-. f 2 2 2 2 2 b b b c f . . . . 
-. . f 2 2 2 b b b c f . . . . . 
-. . . f f f f f f f . . . . . . 
-. . . . . . . . . . . . . . . . 
-`,img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . c c . c c . . . . . . . . 
-. . f 3 c c 3 c c c . . . . . . 
-. f c 3 b c 3 b c c c . . . . . 
-f c b b b b b b b b f f . . . . 
-c c 1 b b b 1 b b b f f . . . . 
-c b b b b b b b b c f f f . . . 
-c b 1 f f 1 c b b f f f f . . . 
-f f 1 f f 1 f b c c b b b . . . 
-f f f f f f f b f c c c c . . . 
-f f 2 2 2 2 f b f b b c c c . . 
-. f 2 2 2 2 2 b c c b b c . . . 
-. . f 2 2 2 b f f c c b b c . . 
-. . . f f f f f f f c c c c c . 
-. . . . . . . . . . . . c c c c 
-`,img`
-. f f f . . . . . . . . f f f . 
-f f c . . . . . . . f c b b c . 
-f c c . . . . . . f c b b c . . 
-c f . . . . . . . f b c c c . . 
-c f f . . . . . f f b b c c . . 
-f f f c c . c c f b c b b c . . 
-f f f c c c c c f b c c b c . . 
-. f c 3 c c 3 b c b c c c . . . 
-. c b 3 b c 3 b b c c c c . . . 
-c c b b b b b b b b c c . . . . 
-c 1 1 b b b 1 1 b b b f c . . . 
-f b b b b b b b b b b f c c . . 
-f b c b b b c b b b b f . . . . 
-. f 1 f f f 1 b b b c f . . . . 
-. . f b b b b b b c f . . . . . 
-. . . f f f f f f f . . . . . . 
-`],
-    100,
-    true
-    )
-    bat.setPosition(quack.x + 80, quack.y - 80)
-    bat.follow(quack)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
-    info.changeScoreBy(1)
-    otherSprite.destroy()
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (quack.vy == 0) {
-        quack.vy = -200
-    }
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    otherSprite.destroy()
-    if (quack.y < otherSprite.y) {
-        info.changeScoreBy(3)
-    } else {
-        info.changeLifeBy(-1)
-    }
-})
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile16, function (sprite, location) {
-    current_level += 1
-    Startlevel()
-})
-let bat: Sprite = null
 let mushroom: Sprite = null
 let coin2: Sprite = null
+let bat: Sprite = null
 let quack: Sprite = null
 let current_level = 0
 scene.setBackgroundColor(9)
@@ -661,6 +661,13 @@ c b d d d d d 5 5 5 5 5 5 5 b .
 `, SpriteKind.Player)
 controller.moveSprite(quack, 100, 0)
 quack.setFlag(SpriteFlag.BounceOnWall, false)
+game.showLongText("Hello! This Quack the Duck!", DialogLayout.Bottom)
+game.showLongText("To save Quack you must get through the levels and go through the portals.", DialogLayout.Bottom)
+game.showLongText("There are going to be enemies that will stop you from saving Quack. ", DialogLayout.Bottom)
+game.showLongText("Quack must avoid the enemies otherwise he will lose a life", DialogLayout.Bottom)
+game.showLongText("Remember saving Quack is the Goal", DialogLayout.Bottom)
+game.showLongText("3...2...1...", DialogLayout.Bottom)
+game.showLongText("BEGIN!!!!", DialogLayout.Bottom)
 Startlevel()
 game.onUpdate(function () {
     quack.setImage(img`
