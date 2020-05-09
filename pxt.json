@@ -1,5 +1,5 @@
 {
-    "name": "Adventures of Quack-Comp Sci Game Design Project",
+    "name": "Adventures of Quack",
     "dependencies": {
         "device": "*",
         "animation": "*",
